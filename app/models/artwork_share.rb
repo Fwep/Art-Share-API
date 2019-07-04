@@ -11,7 +11,6 @@
 
 class ArtworkShare < ApplicationRecord
   validates :artwork_id, uniqueness: {scope: :viewer_id}
-  validates :artwork_id, :viewer_id, presence: true
 
   belongs_to :artwork
 
