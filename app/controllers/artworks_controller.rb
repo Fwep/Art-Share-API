@@ -10,7 +10,12 @@ class ArtworksController < ApplicationController
   end
 
   def index
-    render json: Artwork.all
+    artworks_of_user = Artwork.where(artist_id: params[:user_id])
+    artworks_shared_with_user = Artwork.joins(:artwork_shares).where(artwork_shares: {viewer_id: params[:user_id]})
+
+    index_art = artworks_of_user.to_a + artworks_shared_with_user.to_a
+    
+    render json: index_art
   end
 
   def show
